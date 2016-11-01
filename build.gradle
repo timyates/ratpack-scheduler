@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:1.4.3"
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+    }
+}
+
+apply plugin: "io.ratpack.ratpack-java"
+apply plugin: "com.github.johnrengelman.shadow"
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'scheduler.Main'
+
+dependencies {
+    // Use Guice for a bit of overkill
+    compile ratpack.dependency('guice')
+
+    // And sundial for the scheduling
+    compile 'org.knowm:sundial:2.1.1'
+
+    // And async logging for fun
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.2'
+    runtime 'org.apache.logging.log4j:log4j-api:2.2'
+    runtime 'org.apache.logging.log4j:log4j-core:2.2'
+    runtime 'com.lmax:disruptor:3.3.0'
+
+    // And dream we have tests ;-)
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}
